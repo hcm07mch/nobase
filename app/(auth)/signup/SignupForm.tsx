@@ -19,8 +19,6 @@ export default function SignupForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const supabase = createClientSupabaseClient();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -38,6 +36,7 @@ export default function SignupForm() {
     setLoading(true);
 
     try {
+      const supabase = createClientSupabaseClient();
       const { error } = await supabase.auth.signUp({
         email,
         password,

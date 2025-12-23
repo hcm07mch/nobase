@@ -6,15 +6,11 @@ import { createClientSupabaseClient } from '@/lib/supabase-client';
 import { Button, Input } from '@/components';
 import styles from '../auth.module.css';
 
-export const dynamic = 'force-dynamic';
-
 export default function ResetPasswordPage() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const supabase = createClientSupabaseClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +19,7 @@ export default function ResetPasswordPage() {
     setLoading(true);
 
     try {
+      const supabase = createClientSupabaseClient();
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password/update`,
       });

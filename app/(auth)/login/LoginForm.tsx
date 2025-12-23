@@ -17,14 +17,13 @@ export default function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const supabase = createClientSupabaseClient();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
+      const supabase = createClientSupabaseClient();
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,

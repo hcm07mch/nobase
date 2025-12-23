@@ -2,8 +2,6 @@ import { Suspense } from 'react';
 import SignupForm from './SignupForm';
 import styles from '../auth.module.css';
 
-export const dynamic = 'force-dynamic';
-
 function SignupLoading() {
   return (
     <div className={styles.authPage}>

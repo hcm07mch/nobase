@@ -2,8 +2,6 @@ import { Suspense } from 'react';
 import LoginForm from './LoginForm';
 import styles from '../auth.module.css';
 
-export const dynamic = 'force-dynamic';
-
 function LoginLoading() {
   return (
     <div className={styles.authPage}>
