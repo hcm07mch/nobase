@@ -1,0 +1,286 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type UserRole = 'student' | 'admin'
+export type EnrollmentStatus = 'active' | 'paused' | 'ended'
+
+export interface Database {
+  public: {
+    Tables: {
+      profiles: {
+        Row: {
+          user_id: string
+          role: UserRole
+          name: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          user_id: string
+          role?: UserRole
+          name?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          user_id?: string
+          role?: UserRole
+          name?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      courses: {
+        Row: {
+          id: string
+          title: string
+          slug: string
+          description: string | null
+          thumbnail_url: string | null
+          is_published: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          slug: string
+          description?: string | null
+          thumbnail_url?: string | null
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          slug?: string
+          description?: string | null
+          thumbnail_url?: string | null
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      cohorts: {
+        Row: {
+          id: string
+          course_id: string
+          title: string
+          slug: string | null
+          starts_at: string | null
+          ends_at: string | null
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          course_id: string
+          title: string
+          slug?: string | null
+          starts_at?: string | null
+          ends_at?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          course_id?: string
+          title?: string
+          slug?: string | null
+          starts_at?: string | null
+          ends_at?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      lessons: {
+        Row: {
+          id: string
+          cohort_id: string
+          title: string
+          sort_order: number
+          vimeo_url: string | null
+          resources: Json
+          description: string | null
+          is_published: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          cohort_id: string
+          title: string
+          sort_order?: number
+          vimeo_url?: string | null
+          resources?: Json
+          description?: string | null
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          cohort_id?: string
+          title?: string
+          sort_order?: number
+          vimeo_url?: string | null
+          resources?: Json
+          description?: string | null
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      enrollments: {
+        Row: {
+          id: string
+          user_id: string
+          cohort_id: string
+          status: EnrollmentStatus
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          cohort_id: string
+          status?: EnrollmentStatus
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          cohort_id?: string
+          status?: EnrollmentStatus
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      lesson_progress: {
+        Row: {
+          id: string
+          user_id: string
+          lesson_id: string
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          lesson_id: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          lesson_id?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      announcements: {
+        Row: {
+          id: string
+          cohort_id: string
+          title: string
+          body: string
+          is_pinned: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          cohort_id: string
+          title: string
+          body: string
+          is_pinned?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          cohort_id?: string
+          title?: string
+          body?: string
+          is_pinned?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      has_enrollment: {
+        Args: {
+          p_cohort_id: string
+        }
+        Returns: boolean
+      }
+      can_access_lesson: {
+        Args: {
+          p_lesson_id: string
+        }
+        Returns: boolean
+      }
+    }
+    Enums: {
+      user_role: UserRole
+      enrollment_status: EnrollmentStatus
+    }
+  }
+}
+
+// 편의 타입들
+export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row']
+export type InsertTables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Insert']
+export type UpdateTables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Update']
+
+export type Profile = Tables<'profiles'>
+export type Course = Tables<'courses'>
+export type Cohort = Tables<'cohorts'>
+export type Lesson = Tables<'lessons'>
+export type Enrollment = Tables<'enrollments'>
+export type LessonProgress = Tables<'lesson_progress'>
+export type Announcement = Tables<'announcements'>
+
+// 조인된 타입들
+export type CohortWithCourse = Cohort & {
+  courses: Course
+}
+
+export type EnrollmentWithCohort = Enrollment & {
+  cohorts: CohortWithCourse
+}
+
+export type LessonWithProgress = Lesson & {
+  lesson_progress?: LessonProgress[]
+}
+
+export type Resource = {
+  type: 'link' | 'pdf' | 'file'
+  title: string
+  url: string
+}
