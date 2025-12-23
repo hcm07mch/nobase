@@ -1,10 +1,15 @@
 import { getUser, getProfile } from '@/lib/supabase-server';
-import { Header } from '@/components';
+import { Header, Footer } from '@/components';
 
 export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {children}
+      <Footer />
+    </div>
+  );
 }

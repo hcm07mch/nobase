@@ -6,6 +6,8 @@ import { createClientSupabaseClient } from '@/lib/supabase-client';
 import { Button, Input } from '@/components';
 import styles from '../auth.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default function ResetPasswordPage() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');

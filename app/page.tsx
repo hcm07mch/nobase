@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getUser } from '@/lib/supabase-server';
-import { Button, ThemeToggle } from '@/components';
+import { Button, ThemeToggle, Footer } from '@/components';
 import styles from './home.module.css';
 
 export default async function HomePage() {
@@ -76,9 +76,7 @@ export default async function HomePage() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
-        <p>© 2024 노베이스구조대. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
