@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -25,6 +26,13 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        
+        <div className={styles.legalLinks}>
+          <Link href="/terms" className={styles.legalLink}>서비스 이용약관</Link>
+          <span className={styles.divider}>|</span>
+          <Link href="/privacy" className={styles.legalLink}>개인정보처리방침</Link>
+        </div>
+        
         <div className={styles.copyright}>
           Copyright ⓒ 도텍 Corp. All rights reserved.
         </div>
