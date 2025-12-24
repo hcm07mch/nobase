@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClientSupabaseClient } from '@/lib/supabase-client';
 import { Button, Input } from '@/components';
 import styles from '../auth.module.css';
@@ -42,8 +43,14 @@ export default function ResetPasswordPage() {
       <div className={styles.authContainer}>
         <div className={styles.authCard}>
           <div className={styles.logoSection}>
-            <div className={styles.logo}>🛟</div>
-            <div className={styles.logoText}>노베이스구조대</div>
+            <Image
+              src="/logo_kr_b.png"
+              alt="노베이스구조대"
+              width={200}
+              height={40}
+              className={styles.logoImage}
+              priority
+            />
           </div>
 
           <h1 className={styles.title}>비밀번호 재설정</h1>

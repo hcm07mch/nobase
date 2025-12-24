@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClientSupabaseClient } from '@/lib/supabase-client';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
@@ -27,8 +28,22 @@ export default function Header({ userName, isLoggedIn }: HeaderProps) {
   return (
     <header className={styles.header}>
       <Link href={isLoggedIn ? '/dashboard' : '/'} className={styles.logo}>
-        <span className={styles.logoIcon}>🛟</span>
-        <span className={styles.logoText}>노베이스구조대</span>
+        <Image
+          src="/logo_kr_b.png"
+          alt="노베이스구조대"
+          width={160}
+          height={32}
+          className={styles.logoImage}
+          priority
+        />
+        <Image
+          src="/logo_kr_w.png"
+          alt="노베이스구조대"
+          width={160}
+          height={32}
+          className={styles.logoImageDark}
+          priority
+        />
       </Link>
 
       {isLoggedIn && (

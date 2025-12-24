@@ -31,6 +31,34 @@
   color: inherit;
 }
 
+.logoImage {
+  display: block;
+  height: auto;
+}
+
+.logoImageDark {
+  display: none;
+  height: auto;
+}
+
+[data-theme="dark"] .logoImage {
+  display: none;
+}
+
+[data-theme="dark"] .logoImageDark {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logoImage {
+    display: none;
+  }
+  
+  :root:not([data-theme="light"]) .logoImageDark {
+    display: block;
+  }
+}
+
 .logoIcon {
   font-size: var(--text-2xl);
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getUser } from '@/lib/supabase-server';
 import { Button, ThemeToggle, Footer } from '@/components';
 import styles from './home.module.css';
@@ -11,8 +12,22 @@ export default async function HomePage() {
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <Link href="/" className={styles.logo}>
-            <span className={styles.logoIcon}>🛟</span>
-            <span className={styles.logoText}>노베이스구조대</span>
+            <Image
+              src="/logo_kr_b.png"
+              alt="노베이스구조대"
+              width={180}
+              height={36}
+              className={styles.logoImage}
+              priority
+            />
+            <Image
+              src="/logo_kr_w.png"
+              alt="노베이스구조대"
+              width={180}
+              height={36}
+              className={styles.logoImageDark}
+              priority
+            />
           </Link>
           <nav className={styles.nav}>
             <ThemeToggle />
